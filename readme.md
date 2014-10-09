@@ -34,3 +34,13 @@ After our migration is created, we must actually remember to run our migrations 
 
 By now, you should know that command like the back of your hand.
 
+#### Part 2 -- Let's be Secure
+
+But wait! How are our users going to log in? We need to make our user model secure. Let's add a `password` to our user.
+
+Make a migration to add the column `password` to the `User` model.
+
+Now, in order to make our `User` model secure, we're going to have to use a little more magic. We want to use
+something called a *hash*. Don't confuse this *hash* with the hash object similar to a dictionary in Python. This
+hash is a security term used to describe applying a [hash function](http://en.wikipedia.org/wiki/Hash_function) to data
+so that it cannot be reverse engineered.
