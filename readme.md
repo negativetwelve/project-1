@@ -219,3 +219,8 @@ NOTE: Some useful debugging tips:
 
 * Remember you can run `rake routes` in your terminal to see a list of all the routes you have defined in `rotues.rb`
 * Remember the `as: ` syntax for adding a name to the routes
+
+Fill in the method you just created with the correct implementation to create a new user object and save it to the database.
+If you're seeing errors such as the `ActiveModel::ForbiddenAttributesError`, refer back to the [lab on creating objects](https://docs.google.com/document/d/1eRJ8uGfZNohrTnSZgrrFF7X3mvcHdztRhDrfKV1jf9E/edit)
+
+
