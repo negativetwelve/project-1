@@ -204,4 +204,5 @@ Let's replace that with a sign up form!
       </div>
     </div>
 
-
+Let's try to reload the page...oh no! Looks like we need to define our `@user` variable. Add a line to
+the `UsersController` to set the instance variable `@user` by creating a new instance of the `User` class.
