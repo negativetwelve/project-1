@@ -141,5 +141,16 @@ Then, we can check to see if this User has the correct password by running the c
 If that is indeed Howard's password, this method will return the User object for Howard. Otherwise,
 if that is the incorrect password, this method will return `false`.
 
+Part 3 -- Signing Up and Signing In
+-------------------------------
 
+Now that we have our User model, we need a way for the user to sign in on the website.
+But, before they can sign in, they need to sign up!
+
+Signing up on an application is the same as creating a new user, so let's add a route that let's
+us do that. Add the following line to your routes file:
+
+    get "signup", to: "users#new"
+
+Just a quick refresher, this creates a url `/signup` that points to the controller `users` and the method `new`
 
