@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
+  # YOUR CODE HERE
   has_secure_password
+  # END
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
