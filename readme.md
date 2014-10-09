@@ -12,6 +12,32 @@ For a link to a completed version of what we're going to be creating, go here:
 
 LINK TO APPLICATION
 
+Part 0 -- Initial Application and Things to Remember
+------------------------------------------------------
+
+Fork this repository to your GitHub by clicking the `Fork` button in the top right corner. Then, go to your
+Terminal and clone the repository using the command:
+
+    $ git clone https://github.com/<your github username>/proj-1
+
+Replace `<your github username>` with your actual GitHub username.
+
+Throughout this project, you should be adding parts of the project to your git repo as you complete them.
+We'll guide you how to do this throught the instructions, but the general workflow will be along the lines of:
+
+    $ git add .
+    $ git commit -am "Add User model"
+    $ git push origin HEAD
+
+Remember that when working with a new Rails project, you need to install all of the gems by running the command:
+
+    $ bundle install
+
+The initial application that we are giving you already contains some static pages, namely the home page.
+
+Remember that if you have any questions, feel free to post them on Piazza or come to office hours!
+
+
 Part 1 -- Creating the User Model
 -------------------------------
 
@@ -104,3 +130,6 @@ Then, we can check to see if this User has the correct password by running the c
 
 If that is indeed Howard's password, this method will return the User object for Howard. Otherwise,
 if that is the incorrect password, this method will return `false`.
+
+
+
