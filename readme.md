@@ -25,6 +25,18 @@ is meant to be run in your terminal (shell) and anything that begins with a `>` 
 
 is meant to be run in your Rails Console (by running the command `rails console`).
 
+To run the Rails server, run:
+
+    $ rails server
+
+or just `rails s` for short.
+
+At anytime, you can run the Rails console to inspect and modify your database. Simply run the command:
+
+    $ rails console
+
+or just `rails c` for short.
+
 Fork this repository to your GitHub by clicking the `Fork` button in the top right corner. Then, go to your
 Terminal and clone the repository using the command:
 
@@ -152,5 +164,12 @@ us do that. Add the following line to your routes file:
 
     get "signup", to: "users#new"
 
-Just a quick refresher, this creates a url `/signup` that points to the controller `users` and the method `new`
+Just a quick refresher, this creates a url `/signup` that points to the controller `users` and the method `new`.
+
+Now that we have our route set up, we're going to need a `UsersController` with a method `new`. Recall that to create
+a controller, we can just run the Rails generator:
+
+    rails generate controller Users new
+
+
 
