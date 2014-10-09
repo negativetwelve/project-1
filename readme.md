@@ -41,8 +41,6 @@ Part 2 -- Let's be Secure
 
 But wait! How are our users going to log in? We need to make our user model secure. Let's add a `password` to our user.
 
-Make a migration to add the column `password` to the `User` model.
-
 Now, in order to make our `User` model secure, we're going to have to use a little more magic. We want to use
 something called a *hash*. Don't confuse this *hash* with the hash object similar to a dictionary in Python. This
 hash is a security term used to describe applying a [hash function](http://en.wikipedia.org/wiki/Hash_function) to data
@@ -67,4 +65,42 @@ Then, run the command:
 
 Now you have bcrypt installed!
 
-In order for our users to sign up, we're going to have them enter in both a `password` and a `password_confirmation`
+In order for our users to sign up, we're going to have them enter in both a `password` and a `password_confirmation`.
+Luckily, the `has_secure_password` method creates both of these fields for us as *virtual* attributes -- that is, they don't
+actually exist in the database, however, we're going to use them to generate our `password` and `password_digest` values.
+
+To finally add the `has_secure_password` method to our User model, all we need to do is...add it to the User model!
+
+Your User model should look like this:
+
+    class User < ActiveRecord::Base
+      .
+      .
+      .
+      has_secure_password
+    end
+
+That's it! Now your User model is secure.
+
+One last thing, we need a way to retrieve our users from the database in a secure way. We want to be able to
+look up users by their `email` and `password`, confirm that they match a user, and then sign them in. The
+`has_secure_password` helper adds this functionality as well through the method `authenticate`.
+
+Later on, we're going to want to find our user and check to see if his/her inputted password matches. Here's
+a sneak peek into how that is going to work.
+
+First, we want to find a user with a specific email address. For this, we're going to use the `find_by` method.
+The `find_by` method takes in any number of fields and the values that you want to find a specific entry for.
+If such an object exists in the database, it'll return it. Otherwise, if this method is unable to find an object
+that satisfies all of these conditions, it will return `nil`.
+
+For our User model, we want to run something like:
+
+    > user = User.find_by(email: "howard@swag.com")
+
+Then, we can check to see if this User has the correct password by running the command:
+
+    > current_user = user.authenticate("howardssupersecurepassword001")
+
+If that is indeed Howard's password, this method will return the User object for Howard. Otherwise,
+if that is the incorrect password, this method will return `false`.
