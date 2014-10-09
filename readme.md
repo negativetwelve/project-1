@@ -1,4 +1,5 @@
-### Rails Decal Project 1 (Due TBA)
+Rails Decal Project 1 (Due TBA)
+-------------------------------
 
 For Project 1, we're going to be making a social media website! Our application is going to have the following features:
 
@@ -11,7 +12,8 @@ For a link to a completed version of what we're going to be creating, go here:
 
 LINK TO APPLICATION
 
-#### Part 1 -- Creating the User Model
+Part 1 -- Creating the User Model
+==================================
 
 In this part, we're going to create our user model. Our user model is going to have the following fields:
 
@@ -34,7 +36,8 @@ After our migration is created, we must actually remember to run our migrations 
 
 By now, you should know that command like the back of your hand.
 
-#### Part 2 -- Let's be Secure
+Part 2 -- Let's be Secure
+=================================
 
 But wait! How are our users going to log in? We need to make our user model secure. Let's add a `password` to our user.
 
@@ -51,6 +54,8 @@ The `has_secure_password` method requires a column on our User model called `pas
 Let's go ahead and write a migration to add this column to the User model. Hashing the password makes it so that
 a hacker cannot sign in to a user's account if they managed to steal a copy of the database.
 
+As always, don't forget to run `rake db:migrate` after adding your migration.
+
 To encrypt our passwords, we're going to need to add a gem `bcrypt-ruby`. Let's add that to our `Gemfile` by adding
 the line:
 
@@ -61,3 +66,5 @@ Then, run the command:
     $ bundle install
 
 Now you have bcrypt installed!
+
+In order for our users to sign up, we're going to have them enter in both a `password` and a `password_confirmation`
