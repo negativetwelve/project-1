@@ -206,3 +206,16 @@ Let's replace that with a sign up form!
 
 Let's try to reload the page...oh no! Looks like we need to define our `@user` variable. Add a line to
 the `UsersController` to set the instance variable `@user` by creating a new instance of the `User` class.
+
+After reloading the page again, we have another error, this time, there's an undefined method `users_path`.
+What does this mean? It means we're missing a route that allows us to submit the form. We need to a add a POST
+endpoint at `/signup` that calls the correct method on the `UsersController`. Which method do we want to add? Think
+about which method is responsible for creating a new User object.
+
+After adding that method to the `UsersController` (you can leave the method blank for now) as well as adding the
+correct route to `routes.rb`, reload the page.
+
+NOTE: Some useful debugging tips:
+
+* Remember you can run `rake routes` in your terminal to see a list of all the routes you have defined in `rotues.rb`
+* Remember the `as: ` syntax for adding a name to the routes

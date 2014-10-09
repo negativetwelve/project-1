@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   # YOUR CODE HERE
   get "signup", to: "users#new"
+  post "signup", to: "users#create", as: :users
   # END
 end
