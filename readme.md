@@ -103,7 +103,7 @@ Now you have bcrypt installed!
 
 In order for our users to sign up, we're going to have them enter in both a `password` and a `password_confirmation`.
 Luckily, the `has_secure_password` method creates both of these fields for us as *virtual* attributes -- that is, they don't
-actually exist in the database, however, we're going to use them to generate our `password` and `password_digest` values.
+actually exist in the database, however, we're going to use them to generate our `password_digest` value.
 
 To finally add the `has_secure_password` method to our User model, all we need to do is...add it to the User model!
 
