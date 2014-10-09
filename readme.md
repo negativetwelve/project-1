@@ -15,6 +15,16 @@ LINK TO APPLICATION
 Part 0 -- Initial Application and Things to Remember
 ------------------------------------------------------
 
+Throughout this project, any line of code that starts with a `$` such as:
+
+    $
+
+is meant to be run in your terminal (shell) and anything that begins with a `>` such as:
+
+    >
+
+is meant to be run in your Rails Console (by running the command `rails console`).
+
 Fork this repository to your GitHub by clicking the `Fork` button in the top right corner. Then, go to your
 Terminal and clone the repository using the command:
 
