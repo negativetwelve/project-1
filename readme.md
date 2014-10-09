@@ -44,3 +44,20 @@ Now, in order to make our `User` model secure, we're going to have to use a litt
 something called a *hash*. Don't confuse this *hash* with the hash object similar to a dictionary in Python. This
 hash is a security term used to describe applying a [hash function](http://en.wikipedia.org/wiki/Hash_function) to data
 so that it cannot be reverse engineered.
+
+Luckily, we don't have to do this ourselves. In Rails 3.1, a special method, `has_secure_password` was introduced to help us with this problem. Before we can use this method, we're going to need to add a few more columns to the User model.
+
+The `has_secure_password` method requires a column on our User model called `password_digest`. It should be a string.
+Let's go ahead and write a migration to add this column to the User model. Hashing the password makes it so that
+a hacker cannot sign in to a user's account if they managed to steal a copy of the database.
+
+To encrypt our passwords, we're going to need to add a gem `bcrypt-ruby`. Let's add that to our `Gemfile` by adding
+the line:
+
+    gem 'bcrypt-ruby', '3.1.2'
+
+Then, run the command:
+
+    $ bundle install
+
+Now you have bcrypt installed!
