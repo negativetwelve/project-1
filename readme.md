@@ -224,3 +224,24 @@ Fill in the method you just created with the correct implementation to create a 
 If you're seeing errors such as the `ActiveModel::ForbiddenAttributesError`, refer back to the [lab on creating objects](https://docs.google.com/document/d/1eRJ8uGfZNohrTnSZgrrFF7X3mvcHdztRhDrfKV1jf9E/edit)
 
 
+Part 4 -- Post and Likes
+-------------------------------
+You know what would make our social media app exciting?  Have post and likes!  To create our post model we can simply run
+a generator:
+
+    rails generate model Post content:text user:belongs_to
+
+We can break down this generator into parts.  First Post is the name of the model, and thus the generator will create a model
+called Post and generate a migration that will create a table for Post.  Now the next part of the command is content:text.
+What the generator will then do is create a column called content and make it of type text.  Now the more interesting part
+is the next part, user:belongs_to.  What this will do is create a column called user that contains an integer, and that integer
+will be the ID of the user the post belongs to.  Why didn't we just use user:integer then?  We did user:belongs_to because
+it also adds the belongs_to :user to the Post model ruby file (you can see this line if you look at app/models/post.rb).  This
+line tells the model that there is a relationship between the post and a user, specifically that a post belongs to a user.
+
+Now lets generate a model for a like in a similar manner.  But let's think, what kind of relationship does a like need?  If
+you guessed that a belongs to a user and a post, you are correct!  To generate this let's run the command:
+
+    rails generate model Like user:belongs_to post:belongs_to
+
+This will get rails to generate a like model that belongs to both a post and a user.
