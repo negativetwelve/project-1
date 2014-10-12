@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'users/new'
+  get 'users/:id', to: 'users#show', as: :user
 
   root to: "pages#home"
 
