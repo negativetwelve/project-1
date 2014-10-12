@@ -15,7 +15,6 @@
 /tmp
 
 # Ignore the database.yml file
-/config/database.yml
 
 .DS_Store
 
