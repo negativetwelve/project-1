@@ -210,7 +210,8 @@ the `UsersController` to set the instance variable `@user` by creating a new ins
 After reloading the page again, we have another error, this time, there's an undefined method `users_path`.
 What does this mean? It means we're missing a route that allows us to submit the form. We need to a add a POST
 endpoint at `/signup` that calls the correct method on the `UsersController`. Which method do we want to add? Think
-about which method is responsible for creating a new User object.
+about which method is responsible for creating a new User object.  Also remember to add the method and views that come
+after creating the user, and here's a hint, it starts with 's' and it finds a user by ID.
 
 After adding that method to the `UsersController` (you can leave the method blank for now) as well as adding the
 correct route to `routes.rb`, reload the page.
@@ -245,3 +246,53 @@ you guessed that a belongs to a user and a post, you are correct!  To generate t
     rails generate model Like user:belongs_to post:belongs_to
 
 This will get rails to generate a like model that belongs to both a post and a user.
+
+Now let's show the user's post.  Remember how we hinted at a certain view you should probably redirect to after you create
+a new user?  Well I'm going to just spill the beans and tell you it's the show view.  In the show view let's just say
+in addition to the user's information you also want to show the user's posts.  After putting information like the users
+name and email in the view append this at the bottom.
+
+    <div class="span8">
+      <% if @user.posts.any? %>
+        <h3>Posts (<%= @user.posts.count %>)</h3>
+        <ol class="Posts">
+          <%= render @posts %>
+        </ol>
+      <% end %>
+    </div>
+
+To break it down first we do some html stuff you don't need to really know about, which is creating a div with a class span8,
+this is just styling.  Now the next line is embedded ruby code that checks to see if user's have any post.  Currently this
+line actually doesn't work but just bear with us for now.  The next important line embedded ruby line is render @posts, which
+is basically to show all the values in the @posts variable.  How does it know how to format it?  We'll define that later.
+
+First let's give the ability for a User to see it's own post.  In your User.rb model, write the line
+
+    has_many :posts, dependent: :destroy
+
+This tells the user model that we have another model called post that looks up to it.  With that line, whenever we call a User's
+.posts method, it will query our database for Posts that have a user_id that is the same as the User that is calling the method.
+The .any? function just tells us whether or not we have any variables in that list (it will return either true or false).  The
+dependent :destroy just tell's us that the post are dependent on the User it looks up to so when a User is destroyed so are
+all the posts that look up to it.
+
+Next we have to worry about rendering the @post.  How does the following line in our view work?
+    <%= render @posts %>
+It will look for a a default formatting of a post.  Let's define one in our posts views.  Create a folder in your views
+for posts, and within it create a file called \_post.html.erb.  This naming convention just gives us some default rendering
+for a post object.  Now within the file write the following erb code.
+
+    <li>
+      <span class="content"><%= post.content %></span>
+      <span class="timestamp">
+        Posted <%= time_ago_in_words(post.created_at) %> ago.
+      </span>
+    </li>
+
+To break this down li is an HTML tag for a list item.  Within the span it accesses the content of a post and the field post.created_at.
+What time_ago_in_words does is it just formats a DateTime to a more easily readible string.
+
+Now all that's left for you to do to make this all work is to make sure you assign the values @user and @posts in your show function
+of your Users controller and route the show view.  Initially your show view should not have any posts because you haven't made any,
+but if you open up the rails console and manually create post with content and a user_id that matches the one you want to look at,
+you can refresh your page and they should appear.
