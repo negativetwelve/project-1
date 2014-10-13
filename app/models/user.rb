@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # YOUR CODE HERE
   has_secure_password
   # END
+  has_many :posts, dependent: :destroy
+
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
