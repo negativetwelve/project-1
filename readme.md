@@ -122,10 +122,10 @@ To finally add the `has_secure_password` method to our User model, all we need t
 Your User model should look like this:
 
     class User < ActiveRecord::Base
-      .
-      .
-      .
-      has_secure_password
+        .
+        .
+        .
+        has_secure_password
     end
 
 That's it! Now your User model is secure.
@@ -184,24 +184,24 @@ Let's replace that with a sign up form!
     <h1>Sign up</h1>
 
     <div class="row">
-      <div class="span6 offset3">
-        <%= form_for(@user) do |f| %>
+        <div class="span6 offset3">
+            <%= form_for(@user) do |f| %>
 
-          <%= f.label :name %>
-          <%= f.text_field :name %>
-
-          <%= f.label :email %>
-          <%= f.text_field :email %>
-
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-
-          <%= f.label :password_confirmation, "Confirmation" %>
-          <%= f.password_field :password_confirmation %>
-
-          <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-        <% end %>
-      </div>
+                <%= f.label :name %>
+                <%= f.text_field :name %>
+        
+                <%= f.label :email %>
+                <%= f.text_field :email %>
+        
+                <%= f.label :password %>
+                <%= f.password_field :password %>
+        
+                <%= f.label :password_confirmation, "Confirmation" %>
+                <%= f.password_field :password_confirmation %>
+        
+                <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+            <% end %>
+        </div>
     </div>
 
 Let's try to reload the page...oh no! Looks like we need to define our `@user` variable. Add a line to
@@ -218,7 +218,7 @@ correct route to `routes.rb`, reload the page.
 
 NOTE: Some useful debugging tips:
 
-* Remember you can run `rake routes` in your terminal to see a list of all the routes you have defined in `rotues.rb`
+* Remember you can run `rake routes` in your terminal to see a list of all the routes you have defined in `routes.rb`
 * Remember the `as: ` syntax for adding a name to the routes
 
 Fill in the method you just created with the correct implementation to create a new user object and save it to the database.
@@ -240,7 +240,7 @@ will be the ID of the user the post belongs to.  Why didn't we just use user:int
 it also adds the belongs_to :user to the Post model ruby file (you can see this line if you look at app/models/post.rb).  This
 line tells the model that there is a relationship between the post and a user, specifically that a post belongs to a user.
 
-Now lets generate a model for a like in a similar manner.  But let's think, what kind of relationship does a like need?  If
+Now let's generate a model for a like in a similar manner.  But let's think, what kind of relationship does a like need?  If
 you guessed that a belongs to a user and a post, you are correct!  To generate this let's run the command:
 
     rails generate model Like user:belongs_to post:belongs_to
@@ -253,16 +253,16 @@ in addition to the user's information you also want to show the user's posts.  A
 name and email in the view append this at the bottom.
 
     <div class="span8">
-      <% if @user.posts.any? %>
-        <h3>Posts (<%= @user.posts.count %>)</h3>
-        <ol class="Posts">
-          <%= render @posts %>
-        </ol>
-      <% end %>
+        <% if @user.posts.any? %>
+            <h3>Posts (<%= @user.posts.count %>)</h3>
+            <ol class="Posts">
+                <%= render @posts %>
+            </ol>
+        <% end %>
     </div>
 
-To break it down first we do some html stuff you don't need to really know about, which is creating a div with a class span8,
-this is just styling.  Now the next line is embedded ruby code that checks to see if user's have any post.  Currently this
+To break it down first we do some html stuff you don't need to really know about, which is creating a div with a class span8 -
+this is just styling.  Now the next line is embedded ruby code that checks to see if the user has any posts.  Currently this
 line actually doesn't work but just bear with us for now.  The next important line embedded ruby line is render @posts, which
 is basically to show all the values in the @posts variable.  How does it know how to format it?  We'll define that later.
 
@@ -270,23 +270,23 @@ First let's give the ability for a User to see it's own post.  In your User.rb m
 
     has_many :posts, dependent: :destroy
 
-This tells the user model that we have another model called post that looks up to it.  With that line, whenever we call a User's
-.posts method, it will query our database for Posts that have a user_id that is the same as the User that is calling the method.
-The .any? function just tells us whether or not we have any variables in that list (it will return either true or false).  The
-dependent :destroy just tell's us that the post are dependent on the User it looks up to so when a User is destroyed so are
-all the posts that look up to it.
+This tells the User model that we have another model called Post that has a relationship with it. Specifically, this line says that each instance of a User can have many instances of Posts that are tied to it. With that line, whenever we call a User's
+`.posts` method, it will query our database for Posts that have a user_id that is the same as the User that is calling the method. For instance `@user.posts` will give us all the posts that belong to the user saved in `@user`.
+The `.any?` function just returns to us whether or not the given list it is called on is empty or not (it will return either true if not empty or false if empty). For instance, `@user.posts.any?` should return true if the user has at least one post, but false if it has none. The
+dependent :destroy just tells us that the posts are dependent on the user it looks up to so when a specific instance of User is destroyed, so are
+all the posts that are tied to that User.
 
-Next we have to worry about rendering the @post.  How does the following line in our view work?
-    <%= render @posts %>
-It will look for a a default formatting of a post.  Let's define one in our posts views.  Create a folder in your views
-for posts, and within it create a file called \_post.html.erb.  This naming convention just gives us some default rendering
+Next we have to worry about rendering the @posts.  How does the following line in our view work?
+   ` <%= render @posts %>`
+Here is where some Rails magic comes in again. When `render` is used in a view, it is usually calling a "partial", which is sort of like a subview that is usually recurring in multiple places of the app, therefore encapsulated in its own html.erb file. When Rails sees `render` called on a collection such as `@posts`, it automatically assumes this collection is a collection of Post objects, and looks for a partial called `\_post.html.erb`. It is essentially looking for a default formatting of a Post object, so that it can render this formatting for each Post in the collection `@posts`.  Let's define this file in our posts views so Rails doesn't get confused.  Create a folder in your views
+for posts, and within it create a file called `\_post.html.erb`.  This naming convention just gives us some default rendering
 for a post object.  Now within the file write the following erb code.
 
     <li>
-      <span class="content"><%= post.content %></span>
-      <span class="timestamp">
-        Posted <%= time_ago_in_words(post.created_at) %> ago.
-      </span>
+        <span class="content"><%= post.content %></span>
+        <span class="timestamp">
+            Posted <%= time_ago_in_words(post.created_at) %> ago.
+        </span>
     </li>
 
 To break this down li is an HTML tag for a list item.  Within the span it accesses the content of a post and the field post.created_at.
